@@ -11,7 +11,7 @@ const legacy={v:1,source:'en',target:'pt',original:'Hello',translated:'Olá'};as
 for(const bad of ['TYVT2:!!','garbage','TYVT2:'+t.encode('{}'),'TYVT2:'+t.encode(JSON.stringify({...legacy,v:2,source:'xx'})),'TYVT2:'+t.encode(JSON.stringify({...legacy,v:2,original:'x'.repeat(2001)})),'TYVT1:'+t.encode(JSON.stringify({...legacy,v:2}))])assert.throws(()=>t.parse(bad));
 for(const c of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')assert.ok(t.GLYPHS[c].path.length>20);
 const all=t.svgCard('ABCDEFGHIJKLMNOPQRSTUVWXYZ',false);assert.equal((all.svg.match(/<path /g)||[]).length,26);assert.ok(!all.svg.includes('font-family="Teyvat"'));
-const long=t.svgCard('W'.repeat(2000),true);assert.equal((long.svg.match(/<path /g)||[]).length,2000);assert.ok(long.height>560);
+const long=t.svgCard('W'.repeat(2000),true);assert.equal((long.svg.match(/<use /g)||[]).length,2000);assert.equal((long.svg.match(/<path /g)||[]).length,1);assert.ok(long.svg.length<500000);assert.ok(long.height>560);
 const safe=t.svgCard('<script>alert("oi")</script>&',true);assert.ok(!safe.svg.includes('<script>'));assert.ok(safe.svg.includes('&lt;'));
 fs.writeFileSync(new URL('./dist/assets/alphabet.svg',import.meta.url),t.atlasSVG());fs.writeFileSync('/tmp/teyvat-long-test.svg',long.svg);fs.writeFileSync('/tmp/teyvat-all-test.svg',all.svg);
 console.log('PASS: 26 glifos, acentos, Unicode, TYVT1/TYVT2, validação de códigos, SVG seguro e carta longa com 2000 glifos sem corte.');
@@ -33,7 +33,7 @@ for(const [id,info] of Object.entries(t.SCRIPTS)){
  const recovered=t.parse('TYVT2:'+t.encode(JSON.stringify(t.pack())));assert.equal(recovered.script,id);
  const card=t.svgCard('ABCDEFGHIJKLMNOPQRSTUVWXYZ',false);assert.equal((card.svg.match(/<path /g)||[]).length,26-info.missing.length);
  for(const c of info.missing){assert.ok(card.svg.includes('>'+c+'</text>'));assert.ok(card.svg.includes('fill="#a44b44"'))}
- const pages=t.stickerPages('W'.repeat(2000));assert.equal(pages.flat().join(''),'W'.repeat(2000));assert.ok(pages.every(p=>p.length<=6));
+ const repeated=t.svgCard('W'.repeat(2000),true);assert.equal((repeated.svg.match(/<use /g)||[]).length,2000);assert.ok(repeated.svg.length<500000);const pages=t.stickerPages('W'.repeat(2000));assert.equal(pages.flat().join(''),'W'.repeat(2000));assert.ok(pages.every(p=>p.length<=6));
  const svg=t.stickerSVG(['HI WOLF!','HOW ARE YOU?']);assert.ok(svg.includes('512'));assert.ok(svg.includes('Figurinha · '));
  fs.writeFileSync('/tmp/teyvat-'+id+'-test.svg',svg);hashes.push(info.sha256);
 }
