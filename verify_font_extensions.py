@@ -28,4 +28,4 @@ for script,base,new in [('sumeru','SumeruScribe-Regular.ttf','CartasSumeruRefere
   recall=np.logical_and(m,binary_dilation(render,iterations=tolerance)).sum()/m.sum()
   assert min(precision,recall)>.99,(script,c,iou,precision,recall)
   print(script,c,'pixel IoU',round(float(iou),4),'precision/recall at 2px',round(float(precision),4),round(float(recall),4))
-print('PASS: originais preservados, fontes completas e cinco contornos rasterizados conferidos com suas referências.')
+print('PASS: originais preservados, fontes completas e todos os contornos rasterizados conferidos com suas referências.')

@@ -19,7 +19,7 @@ for script,base,out,family in [('sumeru','SumeruScribe-Regular.ttf','CartasSumer
  f.setGlyphOrder(order)
  ps=family.replace(' ','')+'-Regular'
  for rec in f['name'].names:
-  values={1:family,2:'Regular',3:ps+'-Reference-v1',4:family+' Regular',5:'Version 1.001; Cartas reference extension of '+base,6:ps,16:family,17:'Regular'}
+  values={1:family,2:'Regular',3:ps+'-Reference-v1',4:family+' Regular',5:'Version 1.002; Cartas reference extension of '+base,6:ps,16:family,17:'Regular'}
   if rec.nameID in values:rec.string=values[rec.nameID].encode(rec.getEncoding(),errors='replace')
  f.save(a/out)
  check=TTFont(a/out)

@@ -50,12 +50,12 @@
       "file": "CartasSumeruReference-Regular.ttf",
       "sourceFile": "Sumeru-Scribe.glyphs",
       "family": "Teyvat-sumeru",
-      "version": "Version 1.001; Cartas reference extension of SumeruScribe-Regular.ttf",
+      "version": "Version 1.002; Cartas reference extension of SumeruScribe-Regular.ttf",
       "upm": 1000,
       "missing": "",
       "supported": " ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
       "note": "X completado por traçado da tabela de Sumeru que você enviou. Os demais glifos originais foram preservados.",
-      "sha256": "e528ca6bf88981141aaa68021e500c97253a2e29615b84f50c1e56e5742cc929"
+      "sha256": "78e0c167a060768b903ac0ffda468abbcd80193954c07a454830b20e86949e60"
     },
     {
       "originalFile": "DeshretInscription-Regular.ttf",
@@ -78,7 +78,7 @@
     {
       "originalFile": "FontAinee-Regular.ttf",
       "originalSha256": "f6d881f7483a36bb1781e04e54a2716a2fc5bfd4bf7db5fd03305762aa123ff3",
-      "referenceLetters": "KQYZ",
+      "referenceLetters": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
       "referenceImage": "references/fontaine-alphabet.png",
       "extensionSource": "patch_missing_glyphs.py + assets/reference-glyph-traces.json",
       "id": "fontaine",
@@ -86,12 +86,12 @@
       "file": "CartasFontaineReference-Regular.ttf",
       "sourceFile": "Font-Ainee.glyphs",
       "family": "Teyvat-fontaine",
-      "version": "Version 1.001; Cartas reference extension of FontAinee-Regular.ttf",
+      "version": "Version 1.002; Cartas reference extension of FontAinee-Regular.ttf",
       "upm": 1000,
       "missing": "",
       "supported": " 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-      "note": "K, Q, Y e Z completados por traçado da tabela de Fontaine que você enviou. Inclui os dez algarismos.",
-      "sha256": "29bc2cb77e555789502c8597d804ab5aa4464e61364b1a1533d95f5c53757e8e"
+      "note": "Todas as 26 letras seguem o traçado da tabela de Fontaine enviada. Os números continuam sendo da fonte comunitária original.",
+      "sha256": "ccfeeff7d609b506628c21617dd936c0c5df2bfe299707df40173e3879fd4d8f"
     },
     {
       "originalFile": "KhaenriahSun-Regular.ttf",

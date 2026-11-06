@@ -46,10 +46,26 @@ t.setScript('teyvat');
 console.log('PASS: 7 scripts, exact missing-letter coverage, source-specific digits/punctuation, script-aware round trips, distinct Khaenri’ah variants, 2000-letter pagination in every script.');
 
 // Reconstructed glyphs must be genuine vector paths in every output, not Latin fallbacks.
-for(const [id,letters] of [['sumeru','X'],['fontaine','KQYZ']]){
+for(const [id,letters] of [['sumeru','X'],['fontaine','ABCDEFGHIJKLMNOPQRSTUVWXYZ']]){
  t.setScript(id);assert.equal(t.currentScript().referenceLetters,letters);assert.equal(t.currentScript().missing,'');
  for(const c of letters){assert.ok(t.GLYPHS[c].path.length>100);assert.equal(t.GLYPHS[c].path,t.GLYPHS[c.toLowerCase()].path)}
  const c=t.svgCard(letters,false);assert.equal((c.svg.match(/<path /g)||[]).length,letters.length);assert.ok(!c.svg.includes('fill="#a44b44"'));
  const st=t.stickerSVG([letters]);assert.equal((st.match(/<path /g)||[]).length,letters.length);
 }
 t.setScript('teyvat');console.log('PASS: X de Sumeru e K/Q/Y/Z de Fontaine são contornos nativos na prévia, SVG e figurinhas.');
+// Composition regressions: single mode, word boundaries, independent plain metrics and PDF offsets.
+t.setScript('fontaine');el('input').value='A single letter';el('translated').value='Outra mensagem';el('use-text').value='translated';t.setComposeMode('single');assert.equal(t.pack().selected,'original');assert.equal(t.pack().mode,'single');assert.ok(el('translation-fields').hidden);t.setComposeMode('translation');assert.ok(!el('translation-fields').hidden);assert.equal(t.pack().selected,'translated');t.setComposeMode('single');
+const phrase='Even the fiercest wolf deserves a warm cup of tea\n\nFrom Wriothesley';
+for(const dimensions of [{width:800,height:1132},{width:1132,height:800},{width:480,height:400},{width:1600,height:2400}]){
+ const card=t.svgCard(phrase,true,dimensions);assert.equal(card.width,dimensions.width);assert.ok(card.height>=dimensions.height);if(dimensions.width>=800)assert.ok(card.lines.some(l=>l.includes('WRIOTHESLEY')));assert.ok(card.svg.includes('May the wind carry your words'));
+ assert.equal(card.lines.join('').replace(/\s+/g,''),t.normalise(phrase).replace(/\s+/g,''));
+ const wordSet=new Set(phrase.toUpperCase().split(/\s+/));if(dimensions.width>=800)for(const line of card.lines)for(const word of line.split(/\s+/).filter(Boolean))assert.ok(wordSet.has(word));
+ for(const line of card.plain)assert.ok([...line].length*23<=dimensions.width-128);
+ const lastPlainY=170+card.lines.length*76+28+Math.max(0,card.plain.length-1)*34;assert.ok(lastPlainY<card.height-100);
+}
+const veryLong=t.svgCard('W'.repeat(2000),true,{width:480,height:400});assert.equal(veryLong.lines.join(''),'W'.repeat(2000));assert.equal(veryLong.plain.join(''),'W'.repeat(2000));
+const pdf=t.pdfFromJPEG(new Uint8Array([255,216,255,217]),1132,800),pdfBytes=Buffer.from(await pdf.arrayBuffer()),pdfText=pdfBytes.toString('latin1');assert.ok(pdfText.startsWith('%PDF-1.4'));assert.ok(pdfText.includes('/MediaBox [0 0 679.1999999999999 480]')||pdfText.includes('/MediaBox [0 0 679.2 480]'));
+const start=Number(/startxref\n(\d+)/.exec(pdfText)[1]);assert.equal(pdfText.slice(start,start+4),'xref');for(const m of pdfText.matchAll(/(\d{10}) 00000 n /g)){const offset=Number(m[1]);assert.match(pdfText.slice(offset),/^[1-5] 0 obj/)}
+fs.writeFileSync('/tmp/teyvat-letter-layout.svg',t.svgCard(phrase,true,{width:1132,height:800}).svg);
+if(fs.existsSync('/tmp/teyvat-letter-layout.jpg'))fs.writeFileSync('/tmp/teyvat-letter-layout.pdf',Buffer.from(await t.pdfFromJPEG(fs.readFileSync('/tmp/teyvat-letter-layout.jpg'),1132,800).arrayBuffer()));
+console.log('PASS: single/translation modes, portrait/landscape/custom layouts, intact words, independent readable text metrics, 2000 characters and PDF cross-reference offsets.');

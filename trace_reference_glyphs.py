@@ -1,4 +1,4 @@
-"""Trace supplied alphabet charts into native font contours. Only missing letters are patched."""
+"""Trace supplied alphabet charts into native font contours. Fontaine A–Z follows the supplied chart."""
 from pathlib import Path
 import hashlib,json
 import numpy as np
@@ -11,8 +11,8 @@ from matplotlib.figure import Figure
 r=Path(__file__).parent;a=r/'dist/assets'
 ABC='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 xs=[41,224,408,592,776,959];ys=[89,302,514,727,939,1151,1358]
-result={'description':'Pixel contour traces from user-supplied community reference charts, not official glyph releases. Original upstream font outlines are retained.','sources':{},'patches':{}}
-for script,file,missing in [('sumeru','SumeruScribe-Regular.ttf','X'),('fontaine','FontAinee-Regular.ttf','KQYZ')]:
+result={'description':'Pixel contour traces from user-supplied community reference charts, not official glyph releases. Original upstream glyphs are retained in the font; Fontaine A–Z cmap uses the chart contours.','sources':{},'patches':{}}
+for script,file,missing in [('sumeru','SumeruScribe-Regular.ttf','X'),('fontaine','FontAinee-Regular.ttf',ABC)]:
  ref=r/'references'/f'{script}-alphabet.png';image=np.asarray(Image.open(ref).convert('RGB'),dtype=float)
  f=TTFont(a/file);gs=f.getGlyphSet();cm=f.getBestCmap();samples=[];cells={}
  for i,c in enumerate(ABC):

@@ -1,3 +1,15 @@
+## Atualização: composição e exportação
+
+- Fontaine A–Z agora usa os contornos traçados da tabela enviada, em vez de misturar estilos. Os arquivos originais continuam disponíveis.
+- Carta simples usa apenas um texto; carta com tradução permite português ↔ inglês, revisão e seleção da versão.
+- Vertical (800 × 1132), horizontal (1132 × 800) e dimensões personalizadas. A prévia pode ser redimensionada pelo canto inferior direito; largura e altura mínima também são editáveis.
+- PNG, SVG e PDF compartilham a mesma composição. Palavras são mantidas inteiras quando cabem na linha; palavras excepcionalmente longas são divididas. Textos longos aumentam a altura da carta.
+- O texto legível é medido com sua própria fonte. O PDF incorpora a carta como imagem, preservando o visual sem instalar fontes; seu texto não é selecionável. O SVG mantém as runas como vetores.
+- Rodapé em inglês: “May the wind carry your words”.
+- A tradução online depende do MyMemory e mantém o limite de 500 bytes por requisição; a edição e a transcrição funcionam offline.
+
+Validação: `python verify_font_extensions.py` e `node verify.mjs`.
+
 # ALPHAZEMA · Cartas de Teyvat
 
 ## Abrir localmente
