@@ -1,8 +1,16 @@
+## Modelo de carta ornamentada
+
+O botão **Usar o modelo da referência** carrega a frase de exemplo e Wriothesley como autor, em campos separados, com Fontaine, formato horizontal 1200 × 900 e texto legível ativado. A composição segue a referência: moldura dupla, título central, ornamentos dourados, corpo em runas, divisor, assinatura em runas, texto legível, assinatura legível e rodapé.
+
+Autor, destinatário, local/data e frase de rodapé são opcionais. A assinatura recebe “From”; o destinatário recebe “To”. O tamanho das runas e o espaço entre linhas são ajustáveis. Campos vazios removem seus blocos; textos longos aumentam a altura. Os códigos TYVT2 preservam os detalhes e o formato; códigos antigos continuam aceitos.
+
+A flor-de-lis decorativa foi extraída da referência com a ferramenta de imagem integrada e está em `dist/assets/letter-fleur-de-lis.png`; a procedência e o prompt estão em `references/letter-ornament-provenance.json`. As letras continuam sendo contornos vetoriais das fontes, sem geração de glifos por imagem. O ornamento é incorporado no SVG para manter os arquivos autossuficientes.
+
 ## Atualização: composição e exportação
 
 - Fontaine A–Z agora usa os contornos traçados da tabela enviada, em vez de misturar estilos. Os arquivos originais continuam disponíveis.
 - Carta simples usa apenas um texto; carta com tradução permite português ↔ inglês, revisão e seleção da versão.
-- Vertical (800 × 1132), horizontal (1132 × 800) e dimensões personalizadas. A prévia pode ser redimensionada pelo canto inferior direito; largura e altura mínima também são editáveis.
+- Vertical (900 × 1200), horizontal (1200 × 900) e dimensões personalizadas. A prévia pode ser redimensionada pelo canto inferior direito; largura e altura mínima também são editáveis.
 - PNG, SVG e PDF compartilham a mesma composição. Palavras são mantidas inteiras quando cabem na linha; palavras excepcionalmente longas são divididas. Textos longos aumentam a altura da carta.
 - O texto legível é medido com sua própria fonte. O PDF incorpora a carta como imagem, preservando o visual sem instalar fontes; seu texto não é selecionável. O SVG mantém as runas como vetores.
 - Rodapé em inglês: “May the wind carry your words”.

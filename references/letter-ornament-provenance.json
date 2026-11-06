@@ -1,0 +1,7 @@
+{
+  "tool": "image_gen (built-in)",
+  "input": "references/letter-layout.png",
+  "output": "dist/assets/letter-fleur-de-lis.png",
+  "prompt": "Use case: background-extraction. Edit target: the supplied letter image. Asset type: ornamental gold fleur-de-lis used by a letter-writing website. Extract ONLY the small gold fleur-de-lis ornament at the very top center above the title. Preserve its exact silhouette, warm gold color, delicate shading and clean edges. Remove all paper, all borders, all lines and diamonds, all text and all runes. Output one isolated gold fleur-de-lis, centered and enlarged to occupy about 75% of a square transparent canvas. No text, no invented symbols, no other decorations. This is a precise cutout asset, not a redesign.",
+  "scope": "Decorative ornament only. All text and rune shapes are rendered deterministically by the application."
+}
